@@ -1,0 +1,13 @@
+services:
+  wallpaper-bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # Local git clone of the wallpaper repo
+      - ${REPO_PATH}:/repo
+      # SSH key for git push (read-only)
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      # Override REPO_PATH to match the container mount point
+      REPO_PATH: /repo
